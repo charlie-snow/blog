@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Scroll de enlaces</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<script language="JavaScript" type="text/JavaScript">
+var ancho = 250 //anchura del cuadro
+var alto = 50 //altura del cuadro
+var marco = 1 //0 para que notenga marco (borde)
+var fondo = '#FFFFFF' //color de fondo del cuadro
+var pausilla = 2000 //tiempo de la pausa en milisegundos (2000 = 2 segundos)
+var destino = "_blank" //target en donde se quiera que se carguen los 
+enlaces, en caso de usarlos.
+var cursor = "default;"  //cursor que se quiera sobre el cuadro
+var colEnlace = '#006699' //color del texto del enlace
+var fuente = "arial" //fuente para los textos
+var tamEnlace = '14' // tamaño de la fuente del enlace
+var negrita = true //si se quiere o no negrita en el texto del enlace
+
+function Enlace(texto,enlace,destino){
+	this.texto = texto
+	this.enlace = enlace
+	this.destino = destino
+	}
+var Enlaces = new Array()
+
+Enlaces[0]= new Enlace("","","_self")
+Enlaces[1]= new Enlace("","","_blank")
+Enlaces[2]= new Enlace("","","","_blank")
+Enlaces[3]= new Enlace("","","_blank")
+Enlaces[4]= new Enlace("","","_blank")
+Enlaces[5]= new Enlace("","","_blank")
+Enlaces[6]= new Enlace("","","_blank")
+Enlaces[7]= new Enlace("","","_blank")
+
+var det = false
+
+function escribe(){
+document.write ('<div id="mami" style="width:' + ancho + '; height:' + alto 
++ 'px; position:relative;  overflow:hidden ">')
+document.write('<table bgcolor="' + fondo + '" border = "' + marco + '" 
+width="' + ancho + '" height="100%"><tr><td valign="top">')
+document.write ('<div id="uno" style="top:' + alto +'; width:' + ancho + ' 
+height:' + alto + 'px;  ">')
+
+	document.write ('<a class="enlace" href="')
+	document.write (Enlaces[0].enlace)
+	document.write ('" target="' + Enlaces[0].destino + '">' + Enlaces[0].texto 
++ '</a>')
+
+document.write ('</div>')
+document.write ('<div id="dos" style="top:' + (alto*2) +'; width:' + ancho + 
+' height:' + alto + 'px; ">')
+
+
+	document.write ('<a class="enlace" href="')
+	document.write (Enlaces[1].enlace)
+	document.write ('" target = "' + Enlaces[1].destino + '">' + 
+Enlaces[1].texto + '</a>')
+
+document.write ('</div>')
+document.write('</td></tr></table>')
+document.write ('</div>')
+if(navigator.appName == "Netscape")
+{altoUno = document.getElementById('uno').offsetHeight}
+else
+{altoUno = document.getElementById('uno').clientHeight}
+document.getElementById('uno').onmouseover =function(){
+	det = true
+	clearTimeout(tiempo)
+	}
+document.getElementById('uno').onmouseout =function(){
+	det = false;
+	clearTimeout(tiempo)
+	escrolea()
+	}
+
+document.getElementById('dos').onmouseover =function(){
+	det = true
+	clearTimeout(tiempo)
+	}
+document.getElementById('dos').onmouseout =function(){
+	det = false;
+	clearTimeout(tiempo)
+	 escrolea()
+
+	}
+}
+desp = 1
+var cont = 1
+var pos,pos2
+function escrolea(){
+pos = document.getElementById('uno').style.top
+pos = pos.replace(/px/,"");
+pos = pos.replace(/pt/,"");
+pos = new Number(pos);
+pos2 = document.getElementById('dos').style.top
+pos2 = pos2.replace(/px/,"");
+pos2 = pos2.replace(/pt/,"");
+pos2 = new Number(pos2);
+pos -= desp
+pos2 -= desp
+
+if (pos == desp){
+	var contenidos = ""
+	document.getElementById('dos').style.top = alto
+	document.getElementById('dos').childNodes[0].firstChild.nodeValue  = 
+Enlaces[cont].texto
+	document.getElementById('dos').childNodes[0].href = Enlaces[cont].enlace
+	document.getElementById('dos').childNodes[0].target = Enlaces[cont].destino
+	document.getElementById('uno').style.top = 0
+	if(cont == Enlaces.length-1)
+		{cont=0}
+	else{
+		cont++
+		}
+	pausa()
+	return false
+	}
+else{
+	if (pos2 == desp){
+		var contenidos = ""
+		document.getElementById('uno').style.top = alto
+
+		document.getElementById('uno').childNodes[0].firstChild.nodeValue  = 
+Enlaces[cont].texto
+		document.getElementById('uno').childNodes[0].href  = Enlaces[cont].enlace
+		document.getElementById('uno').childNodes[0].target  = 
+Enlaces[cont].destino
+		document.getElementById('dos').style.top = 0
+		if(cont == Enlaces.length-1)
+		{cont=0}
+	else{
+		cont++
+		}
+		pausa()
+		return false
+		}
+	else{
+		document.getElementById('uno').style.top = pos
+		document.getElementById('dos').style.top = pos2
+		}
+	}
+tiempo = window.setTimeout('escrolea()',50)
+}
+var tiempo
+function pausa()
+{
+clearTimeout(tiempo)
+if (det == false){
+	tiempo = setTimeout ('continuar()',2000)
+	}
+}
+function continuar()
+{
+if(det == false)
+	{escrolea()}
+}
+
+document.write('<style type="text/css">')
+document.write ('#uno {')
+document.write ('color: #006699;')
+if(cursor == "pointer" || cursor == "hand"){
+cursor = (navigator.appName == "Netscape")?'pointer;':'hand;';
+}
+document.write ('cursor:' + cursor + ";")
+document.write ('position:absolute;}')
+document.write ('#dos {')
+document.write ('color: #006699;')
+document.write ('cursor:' + cursor + ";")
+document.write ('position:absolute;}')
+document.write ('.enlace{')
+if(negrita){
+document.write('font-weight: bold;')
+}
+document.write ('color:' + colEnlace + ';')
+document.write ('font-family:' + fuente + ';')
+document.write ('font-size:' + tamEnlace + ';}')
+document.write ('</style>')
+</script>
+</head>
+
+<body bgcolor="#FFFFFF" topmargin="30" marginheight="0" onload="escrolea()">
+<div align="center">
+  <p>
+    <script>escribe()</script>
+  </p>
+
+</div>
+</body>
+</html>

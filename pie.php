@@ -1,0 +1,1 @@
+&nbsp;&nbsp;<font color="#ADEEB6">no encuentro <font color="#000000">p</font>lacer en vivi<font color="#000000">r</font> sino en el viv<font color="#000000">i</font>r aventura<font color="#000000">s</font>, amar, viajar, descubr<font color="#000000">i</font>r,... maldici<font color="#000000">ó</font>n o bendició<font color="#000000">n</font>?</font>
